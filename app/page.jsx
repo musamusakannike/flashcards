@@ -97,30 +97,32 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full container max-w-sm mx-auto">
+      <div className="w-full container max-w-sm mx-auto px-4">
         {loadingWords ? (
           <div className="flex justify-center items-center w-full min-h-[300px]">
             <PulseLoader color="#6B46C1" />
           </div>
         ) : (
-          <div className="bg-purple-500 border border-purple-500 rounded-lg shadow-md min-h-[300px] px-7 flex items-center justify-center text-center mb-4">
-            <p className="text-4xl font-bold text-white">
-              {showTranslation
-                ? isArabic
-                  ? `${
-                      wordPairs.find((pair) => pair.arabic === displayedWord)
-                        ?.english
-                    }`
-                  : `${
-                      wordPairs.find((pair) => pair.english === displayedWord)
-                        ?.arabic
-                    }`
-                : displayedWord}
-            </p>
+          <div className="relative w-full h-[300px] mx-auto">
+            <div className={`flip-card ${showTranslation && "flipped"}`}>
+              <div className="flip-card-inner">
+                <div className="flip-card-front bg-purple-500 border border-purple-500 rounded-lg shadow-md min-h-[300px] px-7 flex items-center justify-center text-center">
+                  <p className="text-4xl font-bold text-white">{displayedWord}</p>
+                </div>
+
+                <div className="flip-card-back bg-purple-500 border border-purple-500 rounded-lg shadow-md min-h-[300px] px-7 flex items-center justify-center text-center">
+                  <p className="text-4xl font-bold text-white">
+                    {isArabic
+                      ? wordPairs.find((pair) => pair.arabic === displayedWord)?.english
+                      : wordPairs.find((pair) => pair.english === displayedWord)?.arabic}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
-        <div className="flex gap-1 justify-center">
+        <div className="flex gap-1 justify-center mt-2">
           <button
             onClick={handleShuffleClick}
             className="p-2 bg-purple-500 text-white font-bold rounded-full shadow-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-300"
