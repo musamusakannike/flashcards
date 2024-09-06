@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Flashcard App
 
-## Getting Started
+This is a **Flashcard App** built with Next.js and React. The app fetches categories and word pairs, displays them as flashcards, and allows users to toggle between the word and its translation. Additionally, users can shuffle through word pairs and view translations on demand.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Category Selection**: Users can select categories (e.g., Animals) to load relevant word pairs.
+- **Flashcard Display**: Displays either an Arabic or English word on the flashcard.
+- **Toggle Translation**: Users can toggle between the word and its translation (English/Arabic).
+- **Shuffle Functionality**: Users can shuffle through the words in the selected category.
+- **Loading Spinners**: Displays a spinner while loading categories or words.
+
+## Tech Stack
+
+- **React**: For building the UI components.
+- **Next.js**: Used for server-side rendering and routing.
+- **react-spinners**: Used to show loading spinners.
+- **Next.js API Routes**: Custom API routes that simulate fetching data from a server.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/flashcard-app.git
+   cd flashcard-app
+   ```
+
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+
+## Folder Structure
+
+```
+├── /api
+│   ├── /categories
+│   │   └── route.js  # Mock API for fetching categories
+│   ├── /words
+│   │   └── route.js  # Mock API for fetching words by category
+├── /assets
+│   └── /images       # Images used in the app (view, unview, shuffle)
+│   └── /mock         # Mock data for categories and word pairs
+├── /components       # React components
+├── /pages            # Next.js pages
+└── README.md         # Project README file
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## API Routes
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### `/api/categories`
+This route returns the list of available categories.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Example Response:
+```json
+[
+  {
+    "id": 1,
+    "name": "Animals"
+  },
+  {
+    "id": 2,
+    "name": "Colors"
+  }
+]
+```
 
-## Learn More
+### `/api/words?category=Animals`
+This route returns the list of word pairs for a given category.
 
-To learn more about Next.js, take a look at the following resources:
+#### Example Response:
+```json
+[
+  {
+    "english": "Dog",
+    "arabic": "كلب"
+  },
+  {
+    "english": "Cat",
+    "arabic": "قطة"
+  }
+]
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Mock Data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+You can simulate the data with the following mock files:
 
-## Deploy on Vercel
+### `/assets/mock/mockData.js`
+```javascript
+export const categories = [
+  { id: 1, name: 'Animals' },
+  { id: 2, name: 'Colors' }
+];
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+export const wordPairs = {
+  Animals: [
+    { english: 'Dog', arabic: 'كلب' },
+    { english: 'Cat', arabic: 'قطة' }
+  ],
+  Colors: [
+    { english: 'Red', arabic: 'أحمر' },
+    { english: 'Blue', arabic: 'أزرق' }
+  ]
+};
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## How It Works
+
+1. **Category Fetching**: On initial render, the app fetches the list of categories from the `/api/categories` endpoint.
+2. **Word Pairs Fetching**: When a category is selected, the app fetches word pairs from `/api/words?category={selectedCategory}`.
+3. **Shuffling Words**: The app randomly selects a word from the word pairs and displays either the English or Arabic version.
+4. **Translation**: The user can toggle the flashcard to view the translation of the displayed word.
+5. **Loading State**: Spinners are shown while categories or words are being fetched.
+
+## Running Tests
+
+To run the tests, use:
+
+```bash
+npm test
+```
