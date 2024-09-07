@@ -73,7 +73,7 @@ export default function Home() {
       </header>
 
       <div className="w-full container max-w-2xl mx-auto mb-6 mt-4">
-        <div className="flex space-x-4 px-4 overflow-x-auto no-scrollbar">
+        <div className="flex justify-center space-x-4 px-4 overflow-x-auto no-scrollbar">
           {loadingCategories ? (
             <div className="flex justify-center w-full">
               <PulseLoader color="#6B46C1" />
@@ -106,16 +106,19 @@ export default function Home() {
           <div className="relative w-full h-[300px] mx-auto">
             <div className={`flip-card ${showTranslation && "flipped"}`}>
               <div className="flip-card-inner">
-                <div className="flip-card-front bg-purple-500 border border-purple-500 rounded-lg shadow-md min-h-[300px] px-7 flex items-center justify-center text-center">
+                <div className="flip-card-front bg-purple-500 border border-purple-500 rounded-lg shadow-md min-h-[300px] px-7 flex items-center justify-center text-center relative">
                   <p className="text-4xl font-bold text-white">{displayedWord}</p>
+                  <p className="absolute m-2 bottom-0 left-0 text-white">QUESTION</p>
                 </div>
 
-                <div className="flip-card-back bg-purple-500 border border-purple-500 rounded-lg shadow-md min-h-[300px] px-7 flex items-center justify-center text-center">
-                  <p className="text-4xl font-bold text-white">
+                <div className="flip-card-back bg-gray-200 border border-gray-200 rounded-lg shadow-md min-h-[300px] px-7 flex items-center justify-center text-center relative">
+                  <p className="text-4xl font-bold text-purple-500">
                     {isArabic
                       ? wordPairs.find((pair) => pair.arabic === displayedWord)?.english
                       : wordPairs.find((pair) => pair.english === displayedWord)?.arabic}
                   </p>
+
+                  <p className="absolute m-2 bottom-0 left-0 text-purple-500">ANSWER</p>
                 </div>
               </div>
             </div>
